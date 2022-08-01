@@ -128,6 +128,15 @@ class ContactManagerTest {
         assertFalse(contactManager.getAllContacts().isEmpty());
         assertEquals(1, contactManager.getAllContacts().size());
     }
+    @DisplayName("CSV File source case - phone number should match format")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/data.csv")
+    public void shouldTestContactCreationUsingCSVFileSource(String phoneNumber){
+        ContactManager contactManager = new ContactManager();
+        contactManager.addContact("John", "Doe", phoneNumber);
+        assertFalse(contactManager.getAllContacts().isEmpty());
+        assertEquals(1, contactManager.getAllContacts().size());
+    }
 
     private static List<String> phoneNumberList(){
         return Arrays.asList("0123456789", "0123654987", "0174859632");
