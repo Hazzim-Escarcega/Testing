@@ -17,7 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContactManagerTest {
 
 
+
     @Test
+    @DisplayName("First test case")
+    @Disabled
     public void shouldCreateContact(){
         ContactManager contactManager = new ContactManager();
         contactManager.addContact("Jabalino", "Ramirez", "0146669999");
