@@ -72,4 +72,14 @@ class ContactManagerTest {
 
 
     }
+    @Test
+    @DisplayName("Test contact creation on dev machine")
+    public void shouldTestContactCreationOnDEV(){
+        Assumptions.assumeTrue("DEV".equals(System.getProperty("DEV")));
+        ContactManager contactManager = new ContactManager();
+        contactManager.addContact("John", "Doe", "0146669999");
+        assertFalse(contactManager.getAllContacts().isEmpty());
+        assertEquals(1, contactManager.getAllContacts().size());
+
+    }
 }
