@@ -1,6 +1,8 @@
 package com.programming.techie;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -52,5 +54,22 @@ class ContactManagerTest {
     @AfterAll
     public void tearDownAll(){
     System.out.println("Printed at the end of the test");
+    }
+    @Test
+    @DisplayName("Should create contact only on mac os")
+    @EnabledOnOs(value = OS.MAC, disabledReason = "Enabled ony on mac os")
+    public void shouldCreateContactOnlyOnMac(){
+        ContactManager contactManager = new ContactManager();
+        contactManager.addContact("Juan", "Martinez", "0146669999");
+        Assertions.assertFalse(contactManager.getAllContacts().isEmpty());
+        Assertions.assertEquals(1, contactManager.getAllContacts().size());
+        Assertions.assertTrue(contactManager.getAllContacts().stream()
+                .filter(contact -> contact.getFirstName().equals("Juan") &&
+                contact.getLastName().equals("Martinez") &&
+                contact.getPhoneNumber().equals("0146669999"))
+                .findAny()
+                .isPresent());
+
+
     }
 }
